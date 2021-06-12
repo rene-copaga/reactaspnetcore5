@@ -9,13 +9,14 @@ import {
   FieldTextArea,
   FormButtonContainer,
   PrimaryButton,
+  FieldError,
 } from './Styles';
 import React from 'react';
 import { Page } from './Page';
 import { useParams } from 'react-router-dom';
 import { QuestionData, getQuestion } from './QuestionsData';
 import { AnswerList } from './AnswerList';
-import { useForm } from 'react-hook-form';
+import { useForm, useFormState } from 'react-hook-form';
 
 type FormData = {
   content: string;
@@ -35,7 +36,10 @@ export const QuestionPage = () => {
       doGetQuestion(Number(questionId));
     }
   }, [questionId]);
-  const { register } = useForm<FormData>();
+  const { register, control } = useForm<FormData>({
+    mode: 'onBlur',
+  });
+  const { errors } = useFormState({ control });
   return (
     <Page>
       <div
@@ -86,7 +90,18 @@ export const QuestionPage = () => {
               <Fieldset>
                 <FieldContainer>
                   <FieldLabel htmlFor="content">Your Answer</FieldLabel>
-                  <FieldTextArea id="content" {...register('content')} />
+                  <FieldTextArea
+                    id="content"
+                    {...register('content', { required: true, minLength: 50 })}
+                  />
+                  {errors.content && errors.content.type === 'required' && (
+                    <FieldError>You must enter the answer</FieldError>
+                  )}
+                  {errors.content && errors.content.type === 'minLength' && (
+                    <FieldError>
+                      The answer must be at least 50 characters
+                    </FieldError>
+                  )}
                 </FieldContainer>
                 <FormButtonContainer>
                   <PrimaryButton type="submit">
