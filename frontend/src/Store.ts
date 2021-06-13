@@ -40,3 +40,15 @@ export const gotQuestionAction = (question: QuestionData | null) =>
     type: GOTQUESTION,
     question: question,
   } as const);
+
+export const SEARCHINGQUESTIONS = 'SearchingQuestions';
+export const searchingQuestionsAction = () =>
+  ({
+    type: SEARCHINGQUESTIONS,
+  } as const);
+export const SEARCHEDQUESTIONS = 'SearchedQuestions';
+export const searchedQuestionsAction = (questions: QuestionData[]) =>
+  ({
+    type: SEARCHEDQUESTIONS,
+    questions,
+  } as const);
