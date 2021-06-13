@@ -15,3 +15,16 @@ const initialQuestionState: QuestionState = {
   viewing: null,
   searched: [],
 };
+
+export const GETTINGUNANSWEREDQUESTIONS = 'GettingUnansweredQuestions';
+export const gettingUnansweredQuestionsAction = () =>
+  ({
+    type: GETTINGUNANSWEREDQUESTIONS,
+  } as const);
+
+export const GOTUNANSWEREDQUESTIONS = 'GotUnansweredQuestions';
+export const gotUnansweredQuestionsAction = (questions: QuestionData[]) =>
+  ({
+    type: GOTUNANSWEREDQUESTIONS,
+    questions: questions,
+  } as const);
