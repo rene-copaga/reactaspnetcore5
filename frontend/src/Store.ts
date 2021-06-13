@@ -28,3 +28,15 @@ export const gotUnansweredQuestionsAction = (questions: QuestionData[]) =>
     type: GOTUNANSWEREDQUESTIONS,
     questions: questions,
   } as const);
+
+export const GETTINGQUESTION = 'GettingQuestion';
+export const gettingQuestionAction = () =>
+  ({
+    type: GETTINGQUESTION,
+  } as const);
+export const GOTQUESTION = 'GotQuestion';
+export const gotQuestionAction = (question: QuestionData | null) =>
+  ({
+    type: GOTQUESTION,
+    question: question,
+  } as const);
