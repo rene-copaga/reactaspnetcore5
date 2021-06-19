@@ -1,8 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.Data.SqlClient;
+using Dapper;
+using QandA.Data.Models;
 
 namespace QandA.Data
 {
@@ -27,7 +28,11 @@ namespace QandA.Data
 
         public IEnumerable<QuestionGetManyResponse> GetQuestions()
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                return connection.Query<QuestionGetManyResponse>(@"EXEC dbo.Question_GetMany");
+            }
         }
 
         public IEnumerable<QuestionGetManyResponse> GetQuestionsBySearch(string search)
