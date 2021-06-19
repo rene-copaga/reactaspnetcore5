@@ -19,5 +19,12 @@ namespace QandA.Controllers
         {
             _dataRepository = dataRepository;
         }
+
+        [HttpGet]
+        public IEnumerable<QuestionGetManyResponse> GetQuestions()
+        {
+            var questions = _dataRepository.GetQuestions();
+            return questions;
+        }
     }
 }
