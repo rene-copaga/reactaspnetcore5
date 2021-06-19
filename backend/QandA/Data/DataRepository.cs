@@ -116,5 +116,18 @@ namespace QandA.Data
                 return GetQuestion(questionId);
             }
         }
+
+        public void DeleteQuestion(int questionId)
+        {
+            using(var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                connection.Execute(
+                    @"EXEC dbo.Question_Delete
+                        @QuestionId = @QuestionId",
+                    new { QuestionId = questionId }
+                );
+            }
+        }
     }
 }
