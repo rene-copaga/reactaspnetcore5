@@ -85,5 +85,21 @@ namespace QandA.Data
                 );
             }
         }
+
+        public QuestionGetSingleResponse PostQuestion(QuestionPostRequest question)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                var questionId = connection.QueryFirst<int>(
+                    @"EXEC dbo.Question_Post
+                        @Title = @Title, @Content = @Content,
+                        @UserId = @UserId, @UseName = @UserName,
+                        @Created = @Created",
+                    question
+                );
+                return GetQuestion(questionId);
+            }
+        }
     }
 }
