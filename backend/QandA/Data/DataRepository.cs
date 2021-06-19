@@ -37,7 +37,12 @@ namespace QandA.Data
 
         public IEnumerable<QuestionGetManyResponse> GetQuestionsBySearch(string search)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                return connection.Query<QuestionGetManyResponse>(
+                    @"EXEC dbo.Question_GetMany_BySearch @Search = @Search", new { Search = search });
+            }
         }
 
         public IEnumerable<QuestionGetManyResponse> GetUnansweredQuestions()
