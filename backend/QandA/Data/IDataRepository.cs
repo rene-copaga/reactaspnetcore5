@@ -7,6 +7,8 @@ namespace QandA.Data
     {
         IEnumerable<QuestionGetManyResponse> GetQuestions();
 
+        IEnumerable<QuestionGetManyResponse> GetQuestionsWithAnswers();
+
         IEnumerable<QuestionGetManyResponse> GetQuestionsBySearch(string search);
 
         IEnumerable<QuestionGetManyResponse> GetUnansweredQuestions();
