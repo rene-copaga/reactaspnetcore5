@@ -94,7 +94,7 @@ namespace QandA.Data
                 var questionId = connection.QueryFirst<int>(
                     @"EXEC dbo.Question_Post
                         @Title = @Title, @Content = @Content,
-                        @UserId = @UserId, @UseName = @UserName,
+                        @UserId = @UserId, @UserName = @UserName,
                         @Created = @Created",
                     question
                 );
