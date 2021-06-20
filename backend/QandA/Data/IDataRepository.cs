@@ -1,5 +1,6 @@
 ﻿using QandA.Data.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace QandA.Data
 {
@@ -14,6 +15,8 @@ namespace QandA.Data
         IEnumerable<QuestionGetManyResponse> GetQuestionsBySearchWithPaging(string search, int pageNumber, int pageSize);
 
         IEnumerable<QuestionGetManyResponse> GetUnansweredQuestions();
+
+        Task<IEnumerable<QuestionGetManyResponse>> GetUnansweredQuestionsAsync();
 
         QuestionGetSingleResponse GetQuestion(int questionId);
 
