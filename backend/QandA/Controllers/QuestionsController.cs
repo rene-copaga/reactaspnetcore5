@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using QandA.Data;
 using QandA.Data.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace QandA.Controllers
 {
@@ -64,6 +65,7 @@ namespace QandA.Controllers
             return question;
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult<QuestionGetSingleResponse> PostQuestion(QuestionPostRequest questionPostRequest)
         {
@@ -80,6 +82,7 @@ namespace QandA.Controllers
                 new { questionId = savedQuestion.QuestionId }, savedQuestion);
         }
 
+        [Authorize]
         [HttpPut("{questionId}")]
         public ActionResult<QuestionGetSingleResponse> PutQuestion(int questionId, QuestionPutRequest questionPutRequest)
         {
@@ -101,6 +104,7 @@ namespace QandA.Controllers
             return savedQuestion;
         }
 
+        [Authorize]
         [HttpDelete("{questionId}")]
         public ActionResult DeleteQuestion(int questionId)
         {
@@ -114,6 +118,7 @@ namespace QandA.Controllers
             return NoContent();
         }
 
+        [Authorize]
         [HttpPost("answer")]
         public ActionResult<AnswerGetResponse> PostAnswer(AnswerPostRequest answerPostRequest)
         {
