@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace QandA.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class QuestionsController : ControllerBase
@@ -23,6 +24,7 @@ namespace QandA.Controllers
             _cache = questionCache;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IEnumerable<QuestionGetManyResponse> GetQuestions(string search, bool includeAnswers, int page = 1, int pageSize = 20)
         {
@@ -43,12 +45,14 @@ namespace QandA.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpGet("unanswered")]
         public async Task<IEnumerable<QuestionGetManyResponse>> GetUnansweredQuestions()
         {
             return await _dataRepository.GetUnansweredQuestionsAsync();
         }
 
+        [AllowAnonymous]
         [HttpGet("{questionId}")]
         public ActionResult<QuestionGetSingleResponse> GetQuestion(int questionId)
         {
@@ -65,7 +69,6 @@ namespace QandA.Controllers
             return question;
         }
 
-        [Authorize]
         [HttpPost]
         public ActionResult<QuestionGetSingleResponse> PostQuestion(QuestionPostRequest questionPostRequest)
         {
@@ -82,7 +85,6 @@ namespace QandA.Controllers
                 new { questionId = savedQuestion.QuestionId }, savedQuestion);
         }
 
-        [Authorize]
         [HttpPut("{questionId}")]
         public ActionResult<QuestionGetSingleResponse> PutQuestion(int questionId, QuestionPutRequest questionPutRequest)
         {
@@ -104,7 +106,6 @@ namespace QandA.Controllers
             return savedQuestion;
         }
 
-        [Authorize]
         [HttpDelete("{questionId}")]
         public ActionResult DeleteQuestion(int questionId)
         {
@@ -118,7 +119,6 @@ namespace QandA.Controllers
             return NoContent();
         }
 
-        [Authorize]
         [HttpPost("answer")]
         public ActionResult<AnswerGetResponse> PostAnswer(AnswerPostRequest answerPostRequest)
         {
