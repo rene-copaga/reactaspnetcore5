@@ -9,6 +9,7 @@ import { configureStore } from './Store';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { SearchPage } from './SearchPage';
 import { SignInPage } from './SignInPage';
+import { SignOutPage } from './SignOutPage';
 import { NotFoundPage } from './NotFoundPage';
 import { QuestionPage } from './QuestionPage';
 const AskPage = React.lazy(() => import('./AskPage'));
@@ -48,7 +49,10 @@ function App() {
                 </React.Suspense>
               }
             />
-            <Route path="signin" element={<SignInPage />} />
+            <Route path="signin" element={<SignInPage action="signin" />} />
+            <Route path="/signin-callback" element={<SignInPage action="signin-callback">} />
+            <Route path="signout" element={<SignOutPage action="signout" />} />
+            <Route path="/signout-callback" element={<SignOutPage action="signout-callback">} /></SignInPage>
             <Route path="questions/:questionId" element={<QuestionPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
