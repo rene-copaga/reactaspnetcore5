@@ -13,11 +13,12 @@ import { SignOutPage } from './SignOutPage';
 import { NotFoundPage } from './NotFoundPage';
 import { QuestionPage } from './QuestionPage';
 const AskPage = React.lazy(() => import('./AskPage'));
+import { AuthProvider } from './Auth';
 
 const store = configureStore();
 function App() {
   return (
-    <Provider store={store}>
+    <AuthProvider>
       <BrowserRouter>
         <div
           css={css`
@@ -58,7 +59,7 @@ function App() {
           </Routes>
         </div>
       </BrowserRouter>
-    </Provider>
+    </AuthProvider>
   );
 }
 
