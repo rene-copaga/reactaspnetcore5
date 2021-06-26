@@ -1,4 +1,5 @@
 import { http } from './http';
+import { getAccessToken } from './Auth';
 export interface QuestionData {
   questionId: number;
   title: string;
@@ -128,15 +129,18 @@ export interface PostQuestionData {
 export const postQuestion = async (
   question: PostQuestionData,
 ): Promise<QuestionData | undefined> => {
-  await wait(500);
-  const questionId = Math.max(...questions.map((q) => q.questionId)) + 1;
-  const newQuestion: QuestionData = {
-    ...question,
-    questionId,
-    answers: [],
-  };
-  questions.push(newQuestion);
-  return newQuestion;
+  const accessToken = await getAccessToken();
+  const result = await http<QuestionDataFromServer, PostQuestionData>({
+    path: '/questions',
+    method: 'post',
+    body: question,
+    accessToken,
+  });
+  if (result.ok && result.body) {
+    return mapQuestionfromServer(result.body);
+  } else {
+    return undefined;
+  }
 };
 
 export interface PostAnswerData {
