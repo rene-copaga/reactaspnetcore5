@@ -71,7 +71,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         signIn: () => getAuth0ClientFromState().loginWithRedirect(),
         signOut: () =>
           getAuth0ClientFromState().logout({
-            clien_id: authSettings.client_id,
+            client_id: authSettings.client_id,
             returnTo: window.location.origin + '/signout-callback',
           }),
         loading,

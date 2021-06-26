@@ -12,54 +12,66 @@ import { SignInPage } from './SignInPage';
 import { SignOutPage } from './SignOutPage';
 import { NotFoundPage } from './NotFoundPage';
 import { QuestionPage } from './QuestionPage';
-const AskPage = React.lazy(() => import('./AskPage'));
 import { AuthProvider } from './Auth';
+const AskPage = React.lazy(() => import('./AskPage'));
 
 const store = configureStore();
+
 function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <div
-          css={css`
-            font-family: ${fontFamily};
-            font-size: ${fontSize};
-            color: ${gray2};
-          `}
-        >
-          <Header />
-          <Routes>
-            <Route path="" element={<HomePage />} />
-            <Route path="search" element={<SearchPage />} />
-            <Route
-              path="ask"
-              element={
-                <React.Suspense
-                  fallback={
-                    <div
-                      css={css`
-                        margin-top: 100px;
-                        text-align: center;
-                      `}
-                    >
-                      Loading...
-                    </div>
-                  }
-                >
-                  <AskPage />
-                </React.Suspense>
-              }
-            />
-            <Route path="signin" element={<SignInPage action="signin" />} />
-            <Route path="/signin-callback" element={<SignInPage action="signin-callback">} />
-            <Route path="signout" element={<SignOutPage action="signout" />} />
-            <Route path="/signout-callback" element={<SignOutPage action="signout-callback">} /></SignInPage>
-            <Route path="questions/:questionId" element={<QuestionPage />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-        </div>
-      </BrowserRouter>
-    </AuthProvider>
+    <Provider store={store}>
+      <AuthProvider>
+        <BrowserRouter>
+          <div
+            css={css`
+              font-family: ${fontFamily};
+              font-size: ${fontSize};
+              color: ${gray2};
+            `}
+          >
+            <Header />
+            <Routes>
+              <Route path="" element={<HomePage />} />
+              <Route path="search" element={<SearchPage />} />
+              <Route
+                path="ask"
+                element={
+                  <React.Suspense
+                    fallback={
+                      <div
+                        css={css`
+                          margin-top: 100px;
+                          text-align: center;
+                        `}
+                      >
+                        Loading...
+                      </div>
+                    }
+                  >
+                    <AskPage />
+                  </React.Suspense>
+                }
+              />
+              <Route path="signin" element={<SignInPage action="signin" />} />
+              <Route
+                path="/signin-callback"
+                element={<SignInPage action="signin-callback" />}
+              />
+              <Route
+                path="signout"
+                element={<SignOutPage action="signout" />}
+              />
+              <Route
+                path="/signout-callback"
+                element={<SignOutPage action="signout-callback" />}
+              />
+              <Route path="questions/:questionId" element={<QuestionPage />} />
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </div>
+        </BrowserRouter>
+      </AuthProvider>
+    </Provider>
   );
 }
 
