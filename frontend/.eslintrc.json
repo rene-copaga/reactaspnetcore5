@@ -3,9 +3,12 @@
   "rules": {
     "prettier/prettier": [
       "error",
-        {
-          "endOfLine": "auto"
-        }
+      {
+        "endOfLine": "auto"
+      }
     ]
+  },
+  "globals": {
+    "cy": true
   }
 }
