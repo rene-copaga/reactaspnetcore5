@@ -1,0 +1,7 @@
+{
+  "baseUrl": "https://qanda2021staging-frontend.azurewebsites.net",
+  "integrationFolder": "integration",
+  "pluginsFile": "plugins/index.js",
+  "supportFile": "support/index.js",
+  "chromeWebSecurity": false
+}
